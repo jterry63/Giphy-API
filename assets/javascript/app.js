@@ -2,12 +2,13 @@ $(document).ready(function () {
 
     console.log("Hello, i'm working");
 
-    var animals = ['Panda', 'Monkey', 'Kangaroo', 'Elephant', 'Tiger', 'Penguin', 'Polar Bear', 'Sloth', 'Lion'];
+    var animals = ['Hippo', 'Lion', 'Panda', 'Monkey', 'Elephant', 'Llama', 'Giraffe', 'Koala'];
 
     function displayGif() {
         $('#gifs-appear-here').empty();
         var gif = $(this).attr('data-name');
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=ffQyjUG9YvVY2KYu9LQPMgxjzG51TZy8&limit=10";
+        console.log(gif);
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + 'Baby ' + gif + "&api_key=ffQyjUG9YvVY2KYu9LQPMgxjzG51TZy8&limit=10";
         $.ajax({
             url: queryURL,
             method: "GET"
