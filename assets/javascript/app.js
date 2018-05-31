@@ -19,12 +19,32 @@ $(document).ready(function () {
                     var gifDiv = $("<div class='item'>");
                     var rating = results[i].rating;
                     var p = $("<p>").text("Rating: " + rating);
-                    var personImage = $("<img>");
+                    var personImage = $('<img class="pics">').attr('src', gifStill).data('still', gifStill).data('animate', gifAuto).data('state', 'still');
                     personImage.attr("src", results[i].images.fixed_height.url);
                     gifDiv.prepend(p);
                     gifDiv.prepend(personImage);
                     $("#gifs-appear-here").prepend(gifDiv);
+                    //grab moving gif     
+                    var gifAuto = response.data[i].images.fixed_height.url;
+                    //grab still image 
+                    var gifStill = response.data[i].images.fixed_height_still.url;
+                    //
+                    var gifFull = $('<img class="pics">').attr('src', gifStill).data('still', gifStill).data('animate', gifAuto).data('state', 'still');
                 };
+
+                $('.pics').on('click', function () {
+                    console.log('click');
+                    var state = $(this).data('state');
+                    console.log(state)
+                    if (state == 'still') {
+                        $(this).attr('src', $(this).data('animate'));
+                        $(this).data('state', 'animate');
+                    }
+                    else {
+                        $(this).attr('src', $(this).data('still'));
+                        $(this).data('state', 'still');
+                    };//else
+                })
             });
     }
 
@@ -52,40 +72,7 @@ $(document).ready(function () {
 
 
 
-    // $("button").on("click", function findGif() {
-    //     var test = $(this).attr("data-animal");
-    //     console.log(test);
-
-    //         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=ffQyjUG9YvVY2KYu9LQPMgxjzG51TZy8&limit=10";
-    //         $.ajax({
-    //             url: queryURL,
-    //             method: "GET"
-    //         })
-    //             .then(function (response) {
-    //                 var results = response.data;
-    //                 for (var i = 0; i < results.length; i++) {
-    //                     var gifDiv = $("<div class='item'>");
-    //                     var rating = results[i].rating;
-    //                     var p = $("<p>").text("Rating: " + rating);
-    //                     var personImage = $("<img>");
-    //                     personImage.attr("src", results[i].images.fixed_height.url);
-    //                     gifDiv.prepend(p);
-    //                     gifDiv.prepend(personImage);
-    //                     $("#gifs-appear-here").prepend(gifDiv);
-
-    //                 }
-
-    //             });
-    // //     });
-    //     $('#addSearch').on('click', function addButton() {
-    //         var newSearch = $('input').eq(0).val();
-    //         var anotherGif = $("<button>").text(newSearch);
-    //         $(this).attr("data-animal", newSearch);
-    //         $("#buttons").append(anotherGif);
-    //         return false;
-
-    //     });
     renderButtons();
     $(document).on('click', '.topicBtn', '.gif', displayGif);
-    // });
+
 });
